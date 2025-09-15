@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Next.js dev",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["next", "dev"],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Vitest",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["vitest", "run"],
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

@@ -6,16 +6,24 @@ on:
   pull_request:
     branches: [main]
 
+# Cancel stale runs when a new commit is pushed to the same ref
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CI: true
+
 jobs:
   lint:
     name: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4 # 1) install pnpm first
-        with:
-          version: 9
-      - uses: actions/setup-node@v4 # 2) then set up Node + enable pnpm cache
+      # Install pnpm (reads version from package.json: "packageManager": "pnpm@x.y.z")
+      - uses: pnpm/action-setup@v4
+      # Setup Node and enable pnpm cache keyed by pnpm-lock.yaml
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
@@ -30,8 +38,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -47,8 +53,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
       - uses: actions/setup-node@v4
         with:
           node-version: 20

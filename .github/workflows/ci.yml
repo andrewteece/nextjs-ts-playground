@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4 # 1) install pnpm first
+      - uses: pnpm/action-setup@v4 # install pnpm first
         with:
           version: 9
-      - uses: actions/setup-node@v4 # 2) then set up Node + enable pnpm cache
+      - uses: actions/setup-node@v4 # then set up Node + enable pnpm cache
         with:
           node-version: 20
           cache: pnpm

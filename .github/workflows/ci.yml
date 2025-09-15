@@ -7,29 +7,53 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  lint:
+    name: lint
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4 # 1) install pnpm first
+        with:
+          version: 9
+      - uses: actions/setup-node@v4 # 2) then set up Node + enable pnpm cache
         with:
           node-version: 20
           cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm --version
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
 
-      - name: Install pnpm
-        run: npm install -g pnpm
+  typecheck:
+    name: typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm --version
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Lint
-        run: pnpm lint
-
-      - name: Typecheck
-        run: pnpm typecheck
-
-      - name: Test
-        run: pnpm test -- --run
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm --version
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:ci

@@ -1,25 +1,30 @@
+import MockBadge from "@/components/wp/MockBadge";
+import NotConfigured from "@/components/wp/NotConfigured";
 import { wpFetch } from "@/lib/wp";
 import { GET_PRODUCTS, GET_SITE_INFO } from "@/lib/wp-queries";
+import { hasWpBackend, isMockEnabled } from "@/lib/wpEnv";
+import Image from "next/image";
 
 export const revalidate = 300;
 
-export default async function ProductsPage() {
-  const hasEndpoint =
-    !!process.env.WP_GRAPHQL_ENDPOINT || process.env.WP_GRAPHQL_MOCK === "true";
+type ProductNode = {
+  id: string;
+  slug: string;
+  name: string;
+  image?: { sourceUrl?: string; altText?: string } | null;
+  price?: {
+    regularPrice?: string | null;
+    salePrice?: string | null;
+    formatted?: string | null;
+  } | null;
+};
 
-  if (!hasEndpoint) {
+export default async function ProductsPage() {
+  if (!hasWpBackend()) {
     return (
       <main className="space-y-4">
         <h1 className="text-2xl font-bold">Products</h1>
-        <p className="text-sm">
-          WordPress is not configured. Add an endpoint to{" "}
-          <code>.env.local</code>:
-        </p>
-        <pre className="rounded-lg border bg-neutral-50 p-3 text-sm">
-          {`WP_GRAPHQL_ENDPOINT=https://your-wp-host/graphql
-# or enable local mock mode:
-WP_GRAPHQL_MOCK=true`}
-        </pre>
+        <NotConfigured />
       </main>
     );
   }
@@ -28,38 +33,61 @@ WP_GRAPHQL_MOCK=true`}
     GET_SITE_INFO,
   );
 
-  let products: { id: string; slug: string; name: string }[] = [];
+  let products: ProductNode[] = [];
   let msg = "";
 
   try {
-    const data = await wpFetch<{ products: { nodes: typeof products } }>(
+    const data = await wpFetch<{ products: { nodes: ProductNode[] } }>(
       GET_PRODUCTS,
-      { first: 10 },
+      { first: 12 },
       { tags: ["wp", "products"] },
     );
     products = data.products?.nodes ?? [];
   } catch {
     msg =
-      'WPGraphQL "products" field was not found. Install WPGraphQL for WooCommerce or switch this page to query posts.';
+      "WooCommerce GraphQL fields not found. Install WPGraphQL for WooCommerce on your WP site.";
   }
 
   return (
     <main className="space-y-4">
-      <h1 className="text-2xl font-bold">
-        {site.generalSettings.title} — Products
-      </h1>
-      {msg ? (
-        <p className="text-sm text-red-600">{msg}</p>
-      ) : products.length ? (
-        <ul className="list-disc pl-6">
+      <div className="flex items-center gap-2">
+        <h1 className="text-2xl font-bold">
+          {site.generalSettings.title} — Products
+        </h1>
+        {isMockEnabled() && <MockBadge />}
+      </div>
+
+      {msg && <p className="text-sm text-red-600">{msg}</p>}
+
+      {products.length ? (
+        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {products.map((p) => (
-            <li key={p.id}>
-              <a href={`/products/${p.slug}`}>{p.name}</a>
+            <li key={p.id} className="rounded-xl border p-3">
+              {p.image?.sourceUrl ? (
+                <Image
+                  src={p.image.sourceUrl}
+                  alt={p.image.altText ?? p.name}
+                  width={400}
+                  height={300}
+                  className="mb-2 rounded-lg border"
+                />
+              ) : null}
+              <a
+                href={`/products/${p.slug}`}
+                className="font-medium hover:underline"
+              >
+                {p.name}
+              </a>
+              {p.price?.formatted ? (
+                <div className="text-sm text-neutral-600">
+                  {p.price.formatted}
+                </div>
+              ) : null}
             </li>
           ))}
         </ul>
       ) : (
-        <p>No products found.</p>
+        !msg && <p>No products found.</p>
       )}
     </main>
   );

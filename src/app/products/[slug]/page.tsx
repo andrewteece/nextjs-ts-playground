@@ -1,3 +1,4 @@
+// src/app/products/[slug]/page.tsx
 import MockBadge from "@/components/wp/MockBadge";
 import NotConfigured from "@/components/wp/NotConfigured";
 import { wpFetch } from "@/lib/wp";
@@ -23,7 +24,8 @@ export const revalidate = 300;
 export default async function ProductPage({
   params,
 }: {
-  params: { slug: string };
+  // 👇 Next 15: params is a Promise you must await
+  params: Promise<{ slug: string }>;
 }) {
   if (!hasWpBackend()) {
     return (
@@ -34,13 +36,16 @@ export default async function ProductPage({
     );
   }
 
+  const { slug } = await params; // 👈 await the params
+
   let product: Product = null;
   let msg = "";
+
   try {
     const data = await wpFetch<{ product: Product }>(
       GET_PRODUCT_BY_SLUG,
-      { slug: params.slug },
-      { tags: ["wp", `product:${params.slug}`] },
+      { slug },
+      { tags: ["wp", `product:${slug}`] },
     );
     product = data.product;
   } catch {

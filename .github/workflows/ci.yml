@@ -66,20 +66,9 @@ jobs:
           ls -la
           echo "Checking for vitest config files:"
           ls -la vitest*
-      # Create a simple test that doesn't require jsdom
-      - name: Create and run simple test
-        run: |
-          # Create a simple test file that doesn't need jsdom
-          cat > simple.test.js << 'EOL'
-          import { test, expect } from 'vitest';
-
-          test('smoke test', () => {
-            expect(1 + 1).toBe(2);
-          });
-          EOL
-
-          # Run the test directly
-          pnpm vitest run simple.test.js
+      # Run simple tests that bypass Storybook plugin
+      - name: Run simple tests
+        run: pnpm test:simple
       # Storybook tests are currently failing with "w2.renderToCanvas is not a function"
       # - run: pnpm test:storybook
 

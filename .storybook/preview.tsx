@@ -1,32 +1,59 @@
-// Import types from nextjs-vite rather than react
+// Use nextjs-vite types
 import type { Decorator, Preview } from "@storybook/nextjs-vite";
-import "../src/app/globals.css"; // Import global styles
+import "../src/app/globals.css";
 
-// Define a consistent padding decorator
+// --- Global toolbar: light/dark theme ---
+export const globalTypes = {
+  theme: {
+    title: "Theme",
+    description: "Global theme for components",
+    defaultValue: "light",
+    toolbar: {
+      icon: "mirror",
+      items: [
+        { value: "light", title: "Light" },
+        { value: "dark", title: "Dark" },
+      ],
+      dynamicTitle: true,
+    },
+  },
+};
+
+// Padding decorator (yours)
 const withPadding: Decorator = (Story) => (
   <div style={{ padding: "1rem" }}>
     <Story />
   </div>
 );
 
-// Clean preview configuration with proper typing
+// Dark-mode decorator: toggles the .dark class + design tokens background
+const withTheme: Decorator = (Story, context) => {
+  const isDark = context.globals.theme === "dark";
+  return (
+    <div className={isDark ? "dark" : ""}>
+      <div className="min-h-[60vh] bg-background text-foreground">
+        <Story />
+      </div>
+    </div>
+  );
+};
+
+// Clean preview configuration
 const preview: Preview = {
   parameters: {
+    layout: "centered",
     controls: {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
     },
-    layout: "centered",
-    // Add some test-specific parameters
+    // Storybook test-runner parameters (kept from your example)
     test: {
-      // Wait for component to render completely
       asyncRender: true,
     },
   },
-  // Simple decorator to add consistent padding
-  decorators: [withPadding],
+  decorators: [withTheme, withPadding],
 };
 
 export default preview;

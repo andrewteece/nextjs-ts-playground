@@ -1,9 +1,12 @@
+// .storybook/main.ts
 import type { StorybookConfig } from "@storybook/nextjs-vite";
 
 const config: StorybookConfig = {
   stories: [
-    "../src/**/*.mdx",
-    "../src/**/*.stories.tsx", // Only load .tsx story files to avoid duplicates
+    // colocated stories (either `*.stories.tsx` next to the component)
+    "../src/components/**/*.stories.@(ts|tsx|mdx)",
+    // OR if you use `__stories__` subfolders, keep this too:
+    "../src/components/**/__stories__/**/*.stories.@(ts|tsx|mdx)",
   ],
   addons: [
     "@chromatic-com/storybook",
@@ -13,7 +16,7 @@ const config: StorybookConfig = {
   ],
   framework: {
     name: "@storybook/nextjs-vite",
-    options: {}, // Vite framework doesn't need the builder configuration
+    options: {},
   },
   staticDirs: ["../public"],
   typescript: {
@@ -21,4 +24,5 @@ const config: StorybookConfig = {
     check: false,
   },
 };
+
 export default config;

@@ -1,50 +1,40 @@
+import { Button } from "@/components/ui/Button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/Card";
 import type { Meta, StoryObj } from "@storybook/react";
-import { Card, CardContent, CardHeader, CardTitle } from "../Card";
 
-const meta: Meta<typeof Card> = {
+const meta = {
   title: "UI/Card",
   component: Card,
   tags: ["autodocs"],
-  parameters: {
-    controls: { expanded: true },
-  },
-};
-export default meta;
+  parameters: { layout: "centered" },
+} satisfies Meta<typeof Card>;
 
-type Story = StoryObj<typeof Card>;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   render: () => (
-    <Card className="max-w-md">
-      <CardContent className="p-6">This is a simple card.</CardContent>
-    </Card>
-  ),
-};
-
-export const WithHeader: Story = {
-  render: () => (
-    <Card className="max-w-md">
+    <Card className="w-[360px]">
       <CardHeader>
         <CardTitle>Card title</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2">
-        <p>Put any content here.</p>
-        <p className="text-sm text-muted-foreground">
-          You can compose header/content as needed.
+      <CardContent>
+        <p className="text-sm text-muted-fg">
+          This card uses your design tokens (light/dark) and soft shadow.
         </p>
       </CardContent>
-    </Card>
-  ),
-};
-
-export const Playground: Story = {
-  args: {},
-  render: (args) => (
-    <Card {...args} className="max-w-md">
-      <CardHeader>
-        <CardTitle>Playground</CardTitle>
-      </CardHeader>
-      <CardContent>Try tweaking args/controls.</CardContent>
+      <CardFooter className="flex gap-2">
+        <Button size="sm">Primary</Button>
+        <Button variant="outline" size="sm">
+          Outline
+        </Button>
+      </CardFooter>
     </Card>
   ),
 };

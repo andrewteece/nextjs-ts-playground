@@ -64,4 +64,14 @@
     @apply w-full rounded-xl border border-input bg-transparent px-3 py-2 text-sm
            outline-none ring-offset-2 focus-visible:ring-2 focus-visible:ring-ring;
   }
+  /* ---- Storybook frame (keeps content readable on ultrawide screens) ---- */
+  .sb-frame {
+    /* Default: comfy reading width, responsive padding */
+    @apply w-full max-w-5xl mx-auto p-6 md:p-8;
+  }
+
+  /* Optional: faint border + rounded card look (toggle on in decorators if desired) */
+  .sb-frame-card {
+    @apply bg-white dark:bg-neutral-900 border border-neutral-200/70 dark:border-neutral-800 rounded-xl shadow-sm;
+  }
 }

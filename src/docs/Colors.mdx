@@ -1,0 +1,121 @@
+import { Meta, Subtitle, Title } from '@storybook/addon-docs/blocks';
+
+<Meta title='Foundations/Colors' name='Colors' />
+
+<Title>Colors</Title>
+<Subtitle>Brand palette and semantic roles</Subtitle>
+
+<style jsx>{`
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 16px 0 24px;
+  }
+  .swatch {
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family:
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Arial,
+      'Noto Sans',
+      'Apple Color Emoji',
+      'Segoe UI Emoji';
+  }
+  .chip {
+    width: 56px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+  }
+  .label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 12px;
+  }
+  .name {
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .code {
+    color: #6b7280;
+  }
+`}</style>
+
+<div class="swatch-grid">
+  <div class="swatch">
+    <div class="label">
+      <span class="name">Brand / Orange</span>
+      <span class="code">var(--brand, #E76F51)</span>
+    </div>
+    <div class="chip" style={{ background: 'var(--brand, #E76F51)' }} />
+  </div>
+
+<div class='swatch'>
+  <div class='label'>
+    <span class='name'>Primary</span>
+    <span class='code'>var(--primary, #0F172A)</span>
+  </div>
+  <div class='chip' style={{ background: 'var(--primary, #0F172A)' }} />
+</div>
+
+<div class='swatch'>
+  <div class='label'>
+    <span class='name'>Accent</span>
+    <span class='code'>var(--accent, #3B82F6)</span>
+  </div>
+  <div class='chip' style={{ background: 'var(--accent, #3B82F6)' }} />
+</div>
+
+<div class='swatch'>
+  <div class='label'>
+    <span class='name'>Success</span>
+    <span class='code'>var(--success, #16A34A)</span>
+  </div>
+  <div class='chip' style={{ background: 'var(--success, #16A34A)' }} />
+</div>
+
+<div class='swatch'>
+  <div class='label'>
+    <span class='name'>Warning</span>
+    <span class='code'>var(--warning, #F59E0B)</span>
+  </div>
+  <div class='chip' style={{ background: 'var(--warning, #F59E0B)' }} />
+</div>
+
+<div class='swatch'>
+  <div class='label'>
+    <span class='name'>Danger</span>
+    <span class='code'>var(--danger, #DC2626)</span>
+  </div>
+  <div class='chip' style={{ background: 'var(--danger, #DC2626)' }} />
+</div>
+
+<div class='swatch'>
+  <div class='label'>
+    <span class='name'>Surface</span>
+    <span class='code'>var(--surface, #FFFFFF)</span>
+  </div>
+  <div class='chip' style={{ background: 'var(--surface, #FFFFFF)' }} />
+</div>
+
+  <div class="swatch">
+    <div class="label">
+      <span class="name">Text</span>
+      <span class="code">var(--text, #0B1220)</span>
+    </div>
+    <div class="chip" style={{ background: 'var(--text, #0B1220)' }} />
+  </div>
+</div>
+
+> Tip: define these CSS variables in your global theme (e.g., `:root { --brand: #E76F51; }`) to make the swatches reflect your design tokens automatically.

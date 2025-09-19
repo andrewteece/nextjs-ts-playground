@@ -1,0 +1,30 @@
+import { Canvas, Controls, Meta, Source } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from '../components/ui/__stories__/Button.stories';
+import * as CardStories from '../components/ui/__stories__/Card.stories';
+import * as InputStories from '../components/ui/__stories__/Input.stories';
+
+<Meta title='Docs/Overview' />
+
+# Documentation Overview
+
+## Quick previews of core UI components
+
+This page highlights key components and links to their full docs. Use the sidebar for the complete list.
+
+<div style={{ marginBottom: '40px' }}>
+  <h3>Button</h3>
+  <Canvas of={ButtonStories.Primary} />
+  <Controls of={ButtonStories.Primary} />
+</div>
+
+<div style={{ marginBottom: '40px' }}>
+  <h3>Card</h3>
+  <Canvas of={CardStories.Default} />
+  <Controls of={CardStories.Default} />
+</div>
+
+<div style={{ marginBottom: '40px' }}>
+  <h3>Input</h3>
+  <Canvas of={InputStories.Default} />
+  <Controls of={InputStories.Default} />
+</div>

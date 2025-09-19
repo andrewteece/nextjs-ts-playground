@@ -8,34 +8,68 @@ const config: Config = {
     container: {
       center: true,
       padding: "1rem",
-      screens: {
-        "2xl": "1280px",
-      },
+      screens: { "2xl": "1280px" },
     },
     extend: {
+      // IMPORTANT: use <alpha-value> so bg-*/opacity like bg-muted/80 works
       colors: {
-        // pick up from CSS variables in globals.css
-        background: "hsl(var(--bg))",
-        foreground: "hsl(var(--fg))",
-        muted: "hsl(var(--muted))",
-        "muted-fg": "hsl(var(--muted-fg))",
-        card: "hsl(var(--card))",
-        "card-fg": "hsl(var(--card-fg))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          fg: "hsl(var(--primary-fg))",
-        },
-        ring: "hsl(var(--ring))",
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
+        background: "hsl(var(--bg) / <alpha-value>)",
+        foreground: "hsl(var(--fg) / <alpha-value>)",
+
+        card: "hsl(var(--card) / <alpha-value>)",
+        "card-fg": "hsl(var(--card-fg) / <alpha-value>)",
+
+        primary: "hsl(var(--primary) / <alpha-value>)",
+        "primary-fg": "hsl(var(--primary-fg) / <alpha-value>)",
+
+        border: "hsl(var(--border) / <alpha-value>)",
+        input: "hsl(var(--input) / <alpha-value>)",
+        ring: "hsl(var(--ring) / <alpha-value>)",
+
+        muted: "hsl(var(--muted) / <alpha-value>)",
+        "muted-fg": "hsl(var(--muted-fg) / <alpha-value>)",
+
+        // (Optional) keep your legacy keys if anything still references them
+        bg: "hsl(var(--bg) / <alpha-value>)",
+        text: "hsl(var(--fg) / <alpha-value>)",
       },
+
       borderRadius: {
+        DEFAULT: "var(--radius-sm)",
+        sm: "var(--radius-xs)",
+        md: "var(--radius-md)",
+        lg: "calc(var(--radius-md) + 2px)",
         xl: "1rem",
         "2xl": "1.25rem",
       },
+
       boxShadow: {
+        // keeps your custom “soft” shadow so `shadow-soft` works
+        sm: "var(--shadow-sm)",
+        md: "var(--shadow-md)",
         soft: "0 1px 2px rgba(0,0,0,0.06), 0 8px 24px -12px rgba(0,0,0,0.12)",
       },
+
+      fontFamily: {
+        sans: "var(--font-sans)",
+      },
+
+      fontSize: {
+        xs: "var(--text-xs)",
+        sm: "var(--text-sm)",
+        base: "var(--text-md)",
+        lg: "var(--text-lg)",
+        xl: "var(--text-xl)",
+      },
+
+      spacing: {
+        1: "var(--space-1)",
+        2: "var(--space-2)",
+        3: "var(--space-3)",
+        4: "var(--space-4)",
+        6: "var(--space-6)",
+      },
+
       animation: {
         "fade-in": "fade-in .25s ease-out both",
       },
@@ -45,6 +79,7 @@ const config: Config = {
           to: { opacity: "1" },
         },
       },
+
       typography: {
         DEFAULT: {
           css: {

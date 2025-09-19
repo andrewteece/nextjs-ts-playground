@@ -1,0 +1,28 @@
+import {
+  Canvas,
+  Description,
+  Meta,
+  Source,
+  Subtitle,
+  Title,
+} from "@storybook/addon-docs/blocks";
+import * as InputStories from "../ui/__stories__/Input.stories";
+import { Input } from "./Input";
+
+<Meta of={InputStories} />
+
+<Title>Input</Title>
+<Subtitle>Text field for forms</Subtitle>
+
+<Description>
+  A styled wrapper around the native input for text entry, search, and
+  controlled fields.
+</Description>
+
+## Example
+
+<Canvas of={InputStories.Default} />
+
+## Source
+
+<Source of={InputStories.Default} />

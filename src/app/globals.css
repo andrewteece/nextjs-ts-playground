@@ -1,7 +1,23 @@
+@import "./../styles/tokens.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: dark light;
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+}
 /* CSS color tokens used by Tailwind theme (HSL for easy theming) */
 :root {
   --bg: 0 0% 100%;
@@ -48,7 +64,8 @@
 
 @layer components {
   .card {
-    @apply rounded-2xl bg-card text-card-fg shadow-soft border border-border;
+    /* changed shadow-soft -> shadow-sm */
+    @apply rounded-2xl bg-card text-card-fg shadow-sm border border-border;
   }
   .btn {
     @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium transition

@@ -1,0 +1,28 @@
+import {
+  Canvas,
+  Description,
+  Meta,
+  Source,
+  Subtitle,
+  Title,
+} from "@storybook/addon-docs/blocks";
+import * as CardStories from "../ui/__stories__/Card.stories";
+import { Card } from "./Card";
+
+<Meta of={CardStories} />
+
+<Title>Card</Title>
+<Subtitle>Text field for forms</Subtitle>
+
+<Description>
+  A styled wrapper around the native input for text entry, search, and
+  controlled fields.
+</Description>
+
+## Example
+
+<Canvas of={CardStories.Default} />
+
+## Source
+
+<Source of={CardStories.Default} />

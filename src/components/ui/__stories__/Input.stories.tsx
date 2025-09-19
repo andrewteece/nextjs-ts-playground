@@ -1,36 +1,30 @@
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
 import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
+import { Input } from "../Input";
 
 const meta = {
   title: "UI/Input",
   component: Input,
-  tags: ["autodocs"],
-  argTypes: {
-    disabled: { control: "boolean" },
-    placeholder: { control: "text" },
-  },
-  args: {
-    placeholder: "Type something…",
-    disabled: false,
-  },
+  args: { placeholder: "Type here…" },
 } satisfies Meta<typeof Input>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Input>;
 
-export const Basic: Story = {};
+export const Default: Story = {};
 
-export const WithButton: Story = {
-  render: (args) => (
-    <div className="flex w-[360px] items-center gap-2">
-      <Input {...args} />
-      <Button className="shrink-0">Submit</Button>
-    </div>
-  ),
-  args: { placeholder: "Email address" },
-};
-
-export const Disabled: Story = {
-  args: { disabled: true, placeholder: "Disabled input" },
+export const Controlled: Story = {
+  render: (args) => {
+    const [value, setValue] = useState("");
+    return (
+      <div className="space-y-2">
+        <Input
+          {...args}
+          value={value}
+          onChange={(e) => setValue(e.currentTarget.value)}
+        />
+        <div className="text-sm text-neutral-600">Value: {value}</div>
+      </div>
+    );
+  },
 };

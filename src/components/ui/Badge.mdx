@@ -1,0 +1,37 @@
+import {
+  Canvas,
+  Controls,
+  Description,
+  Meta,
+  Source,
+  Subtitle,
+  Title,
+} from '@storybook/addon-docs/blocks';
+import * as BadgeStories from './__stories__/Badge.stories';
+// ← points to the CSF file
+
+<Meta of={BadgeStories} title='UI/Badge/Docs' name='Docs' />
+
+<Title>Badge</Title>
+<Subtitle>Compact status/label pill</Subtitle>
+
+<Description>
+  Use Badge to annotate items with short status or category labels. Supports
+  <code>variant</code> (<code>solid</code>, <code>soft</code>,{' '}
+  <code>outline</code>),
+  <code>color</code> (<code>neutral</code>, <code>primary</code>,{' '}
+  <code>success</code>, <code>warning</code>, <code>danger</code>), and{' '}
+  <code>size</code> (<code>sm</code>, <code>md</code>).
+</Description>
+
+## Example
+
+<Canvas of={BadgeStories.Primary} />
+
+## Controls
+
+<Controls of={BadgeStories.Primary} />
+
+## Source
+
+<Source of={BadgeStories.Primary} />

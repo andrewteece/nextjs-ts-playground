@@ -17,7 +17,7 @@ const SimpleBox = ({ text = "Hello, Storybook!" }) => {
 };
 
 const meta = {
-  title: "Debug/SimpleBox",
+  title: "Development/SimpleBox",
   component: SimpleBox,
   parameters: {
     // Disable any potentially problematic addons

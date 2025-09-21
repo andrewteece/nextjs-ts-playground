@@ -1,30 +1,83 @@
-import { Canvas, Controls, Meta, Source } from '@storybook/addon-docs/blocks';
+import {
+  Canvas,
+  Controls,
+  Description,
+  Meta,
+  Source,
+  Subtitle,
+  Title,
+} from '@storybook/addon-docs/blocks';
+
+import * as BadgeStories from '../components/ui/__stories__/Badge.stories';
 import * as ButtonStories from '../components/ui/__stories__/Button.stories';
 import * as CardStories from '../components/ui/__stories__/Card.stories';
 import * as InputStories from '../components/ui/__stories__/Input.stories';
+import * as OverviewStories from '../components/ui/__stories__/Overview.stories';
 
-<Meta title='Docs/Overview' />
+<Meta title='Docs/Overview' of={OverviewStories} />
 
-# Documentation Overview
+<Title>Documentation Overview</Title>
+<Subtitle>Quick previews of core UI components</Subtitle>
 
-## Quick previews of core UI components
+<Description>
+  This page highlights key components and links to their full docs. Use the
+  sidebar for the complete list.
+</Description>
 
-This page highlights key components and links to their full docs. Use the sidebar for the complete list.
+<div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
+    gap: '20px',
+  }}
+>
+  <div style={{ border:'1px solid rgba(0,0,0,.08)', borderRadius:'12px', padding:'14px', background:'#fff' }}>
+    <h3 style={{ margin:'0 0 8px', fontSize:'16px' }}>Button</h3>
+    <div style={{ fontSize:'12px', color:'#6b7280', marginBottom:'8px' }}>Primary</div>
+    <Canvas of={ButtonStories.Primary} />
+    <Controls of={ButtonStories.Primary} />
+    <Source of={ButtonStories.Primary} />
+  </div>
 
-<div style={{ marginBottom: '40px' }}>
-  <h3>Button</h3>
-  <Canvas of={ButtonStories.Primary} />
-  <Controls of={ButtonStories.Primary} />
-</div>
-
-<div style={{ marginBottom: '40px' }}>
-  <h3>Card</h3>
+<div
+  style={{
+    border: '1px solid rgba(0,0,0,.08)',
+    borderRadius: '12px',
+    padding: '14px',
+    background: '#fff',
+  }}
+>
+  <h3 style={{ margin: '0 0 8px', fontSize: '16px' }}>Card</h3>
+  <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '8px' }}>
+    Default
+  </div>
   <Canvas of={CardStories.Default} />
   <Controls of={CardStories.Default} />
+  <Source of={CardStories.Default} />
 </div>
 
-<div style={{ marginBottom: '40px' }}>
-  <h3>Input</h3>
+<div
+  style={{
+    border: '1px solid rgba(0,0,0,.08)',
+    borderRadius: '12px',
+    padding: '14px',
+    background: '#fff',
+  }}
+>
+  <h3 style={{ margin: '0 0 8px', fontSize: '16px' }}>Input</h3>
+  <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '8px' }}>
+    Default
+  </div>
   <Canvas of={InputStories.Default} />
   <Controls of={InputStories.Default} />
+  <Source of={InputStories.Default} />
+</div>
+
+  <div style={{ border:'1px solid rgba(0,0,0,.08)', borderRadius:'12px', padding:'14px', background:'#fff' }}>
+    <h3 style={{ margin:'0 0 8px', fontSize:'16px' }}>Badge</h3>
+    <div style={{ fontSize:'12px', color:'#6b7280', marginBottom:'8px' }}>Primary</div>
+    <Canvas of={BadgeStories.Primary} />
+    <Controls of={BadgeStories.Primary} />
+    <Source of={BadgeStories.Primary} />
+  </div>
 </div>

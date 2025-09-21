@@ -10,7 +10,7 @@ const TestComponent = () => {
 };
 
 const meta = {
-  title: "Debug/TestComponent",
+  title: "Development/TestComponent",
   component: TestComponent,
   render: () => <TestComponent />,
 } satisfies Meta<typeof TestComponent>;

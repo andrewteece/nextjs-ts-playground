@@ -8,7 +8,7 @@ const SimpleTest: React.FC = () => {
 
 // Define the metadata for the story
 const meta = {
-  title: "Test/SimpleTest",
+  title: "Testing/SimpleTest",
   component: SimpleTest,
   render: () => <SimpleTest />,
 } satisfies Meta<typeof SimpleTest>;

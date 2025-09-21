@@ -31,6 +31,7 @@ import * as OverviewStories from '../components/ui/__stories__/Overview.stories'
     gap: '20px',
   }}
 >
+  {/* Button */}
   <div style={{ border:'1px solid rgba(0,0,0,.08)', borderRadius:'12px', padding:'14px', background:'#fff' }}>
     <h3 style={{ margin:'0 0 8px', fontSize:'16px' }}>Button</h3>
     <div style={{ fontSize:'12px', color:'#6b7280', marginBottom:'8px' }}>Primary</div>
@@ -38,6 +39,8 @@ import * as OverviewStories from '../components/ui/__stories__/Overview.stories'
     <Controls of={ButtonStories.Primary} />
     <Source of={ButtonStories.Primary} />
   </div>
+
+{/* Card */}
 
 <div
   style={{
@@ -56,6 +59,8 @@ import * as OverviewStories from '../components/ui/__stories__/Overview.stories'
   <Source of={CardStories.Default} />
 </div>
 
+{/* Input */}
+
 <div
   style={{
     border: '1px solid rgba(0,0,0,.08)',
@@ -73,11 +78,63 @@ import * as OverviewStories from '../components/ui/__stories__/Overview.stories'
   <Source of={InputStories.Default} />
 </div>
 
+{/* Badge */}
+
+<div
+  style={{
+    border: '1px solid rgba(0,0,0,.08)',
+    borderRadius: '12px',
+    padding: '14px',
+    background: '#fff',
+  }}
+>
+  <h3 style={{ margin: '0 0 8px', fontSize: '16px' }}>Badge</h3>
+  <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '8px' }}>
+    Primary
+  </div>
+  <Canvas of={BadgeStories.Primary} />
+  <Controls of={BadgeStories.Primary} />
+  <Source of={BadgeStories.Primary} />
+</div>
+
+{/* Typography (docs-only link card) */}
+
+<div
+  style={{
+    border: '1px solid rgba(0,0,0,.08)',
+    borderRadius: '12px',
+    padding: '14px',
+    background: '#fff',
+  }}
+>
+  <h3 style={{ margin: '0 0 8px', fontSize: '16px' }}>Typography</h3>
+  <p style={{ fontSize: '13px', color: '#6b7280', margin: '0 0 12px' }}>
+    Type scale, weights, leading, and usage guidelines.
+  </p>
+  <a
+    href='?path=/docs/foundations-typography--docs'
+    style={{
+      display: 'inline-block',
+      fontSize: '13px',
+      textDecoration: 'underline',
+    }}
+  >
+    Open Typography docs →
+  </a>
+</div>
+
+{/* Spacing (docs-only link card) */}
+
   <div style={{ border:'1px solid rgba(0,0,0,.08)', borderRadius:'12px', padding:'14px', background:'#fff' }}>
-    <h3 style={{ margin:'0 0 8px', fontSize:'16px' }}>Badge</h3>
-    <div style={{ fontSize:'12px', color:'#6b7280', marginBottom:'8px' }}>Primary</div>
-    <Canvas of={BadgeStories.Primary} />
-    <Controls of={BadgeStories.Primary} />
-    <Source of={BadgeStories.Primary} />
+    <h3 style={{ margin:'0 0 8px', fontSize:'16px' }}>Spacing</h3>
+    <p style={{ fontSize:'13px', color:'#6b7280', margin:'0 0 12px' }}>
+      Consistent paddings, margins, and gaps using Tailwind’s scale.
+    </p>
+    <a
+      href="?path=/docs/foundations-spacing--docs"
+      style={{ display:'inline-block', fontSize:'13px', textDecoration:'underline' }}
+    >
+      Open Spacing docs →
+    </a>
   </div>
 </div>

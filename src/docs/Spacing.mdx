@@ -1,0 +1,112 @@
+import {
+  Description,
+  Meta,
+  Subtitle,
+  Title,
+} from '@storybook/addon-docs/blocks';
+import * as SpacingStories from './__stories__/Spacing.stories';
+
+<Meta title='Foundations/Spacing' of={SpacingStories} />
+
+<Title>Spacing</Title>
+<Subtitle>
+  Consistent paddings, margins, and gaps using Tailwind’s scale
+</Subtitle>
+
+<Description>
+  The spacing scale follows Tailwind defaults (in <code>rem</code>). Use these
+  for padding, margins, and gaps to keep layouts consistent.
+</Description>
+
+<style jsx>{`
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .label {
+    width: 140px;
+    font-size: 12px;
+    color: #6b7280;
+  }
+  .bar {
+    height: 12px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.1);
+  }
+  :root.dark .bar {
+    background: rgba(255, 255, 255, 0.15);
+  }
+  .card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 12px;
+    background: #fff;
+  }
+  :root.dark .card {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+`}</style>
+
+#### Horizontal scale
+
+<div class='space-y-3'>
+  <div class='row'>
+    <div class='label'>1 (0.25rem)</div>
+    <div class='bar w-1'></div>
+  </div>
+  <div class='row'>
+    <div class='label'>2 (0.5rem)</div>
+    <div class='bar w-2'></div>
+  </div>
+  <div class='row'>
+    <div class='label'>4 (1rem)</div>
+    <div class='bar w-4'></div>
+  </div>
+  <div class='row'>
+    <div class='label'>6 (1.5rem)</div>
+    <div class='bar w-6'></div>
+  </div>
+  <div class='row'>
+    <div class='label'>8 (2rem)</div>
+    <div class='bar w-8'></div>
+  </div>
+  <div class='row'>
+    <div class='label'>12 (3rem)</div>
+    <div class='bar w-12'></div>
+  </div>
+  <div class='row'>
+    <div class='label'>16 (4rem)</div>
+    <div class='bar w-16'></div>
+  </div>
+</div>
+
+#### Padding examples
+
+<div class='grid grid-cols-1 md:grid-cols-3 gap-4 mt-4'>
+  <div class='card'>
+    <div class='text-sm text-neutral-500 mb-2'>p-2</div>
+    <div class='bg-black/5 dark:bg-white/10 p-2 rounded'>Content</div>
+  </div>
+  <div class='card'>
+    <div class='text-sm text-neutral-500 mb-2'>p-4</div>
+    <div class='bg-black/5 dark:bg-white/10 p-4 rounded'>Content</div>
+  </div>
+  <div class='card'>
+    <div class='text-sm text-neutral-500 mb-2'>p-6</div>
+    <div class='bg-black/5 dark:bg-white/10 p-6 rounded'>Content</div>
+  </div>
+</div>
+
+### Code example
+
+```tsx
+<section className='p-6 md:p-8'>
+  <h2 className='text-2xl font-semibold mb-4'>Card</h2>
+  <div className='grid gap-4 md:gap-6'>
+    <article className='p-4 rounded-lg bg-neutral-50 dark:bg-neutral-900/40' />
+    <article className='p-4 rounded-lg bg-neutral-50 dark:bg-neutral-900/40' />
+  </div>
+</section>
+```

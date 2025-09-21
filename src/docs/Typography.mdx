@@ -1,0 +1,101 @@
+import {
+  Description,
+  Meta,
+  Subtitle,
+  Title,
+} from '@storybook/addon-docs/blocks';
+import * as TypographyStories from './__stories__/Typography.stories';
+
+<Meta title='Foundations/Typography' of={TypographyStories} />
+
+<Title>Typography</Title>
+<Subtitle>Type scale, weights, leading, and usage guidelines</Subtitle>
+
+<Description>
+  This page documents the default typographic scale used in the playground. It
+  uses Tailwind utility classes and works in both light and dark themes. Use
+  these as sensible defaults for product UIs.
+</Description>
+
+<style>{`
+  .typo-grid { display:grid; grid-template-columns:minmax(160px, 220px) 1fr; gap:12px 20px; align-items:center; }
+  .sample { border:1px solid rgba(0,0,0,.08); border-radius:12px; padding:12px; background:#fff; }
+  :root.dark .sample { background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.12); }
+  .meta { font-size:12px; color:#6b7280; }
+`}</style>
+
+### Headings
+
+<div class="typo-grid">
+  <div><strong>H1</strong><div class="meta">text-4xl / leading-tight / bold</div></div>
+  <div class="sample"><h1 className="text-4xl leading-tight tracking-tight font-bold">The quick brown fox</h1></div>
+
+<div>
+  <strong>H2</strong>
+  <div class='meta'>text-3xl / leading-snug / semibold</div>
+</div>
+<div class='sample'>
+  <h2 className='text-3xl leading-snug tracking-tight font-semibold'>
+    The quick brown fox
+  </h2>
+</div>
+
+<div>
+  <strong>H3</strong>
+  <div class='meta'>text-2xl / leading-snug / semibold</div>
+</div>
+<div class='sample'>
+  <h3 className='text-2xl leading-snug tracking-tight font-semibold'>
+    The quick brown fox
+  </h3>
+</div>
+
+  <div><strong>H4</strong><div class="meta">text-xl / leading-snug / semibold</div></div>
+  <div class="sample"><h4 className="text-xl leading-snug font-semibold">The quick brown fox</h4></div>
+</div>
+
+### Body text
+
+<div class="typo-grid">
+  <div><strong>Body (base)</strong><div class="meta">text-base / leading-7</div></div>
+  <div class="sample"><p className="text-base leading-7">Body copy for most UI surfaces and content.</p></div>
+
+<div>
+  <strong>Small</strong>
+  <div class='meta'>text-sm / leading-6</div>
+</div>
+<div class='sample'>
+  <p className='text-sm leading-6'>Use for secondary text and descriptions.</p>
+</div>
+
+  <div><strong>Micro</strong><div class="meta">text-xs / leading-5</div></div>
+  <div class="sample"><p className="text-xs leading-5">Use sparingly for captions or meta text.</p></div>
+</div>
+
+### Utilities
+
+<div class="typo-grid">
+  <div><strong>Weight</strong><div class="meta">font-normal / font-medium / font-semibold / font-bold</div></div>
+  <div class="sample">
+    <p className="font-normal">Normal</p>
+    <p className="font-medium">Medium</p>
+    <p className="font-semibold">Semibold</p>
+    <p className="font-bold">Bold</p>
+  </div>
+
+  <div><strong>Tracking</strong><div class="meta">tighten or expand</div></div>
+  <div class="sample">
+    <p className="tracking-tight">tracking-tight</p>
+    <p className="tracking-normal">tracking-normal</p>
+    <p className="tracking-wide">tracking-wide</p>
+  </div>
+</div>
+
+### Code example
+
+```tsx
+<h2 className="text-2xl leading-snug font-semibold">Section</h2>
+<p className="text-base leading-7 text-neutral-700 dark:text-neutral-300">
+  Use <span className="font-medium">font-medium</span> for emphasis in running text.
+</p>
+```

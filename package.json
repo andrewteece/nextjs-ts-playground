@@ -24,7 +24,9 @@
     "test:unit": "vitest run --config vitest.config.ts",
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "chromatic": "chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --only-changed --exit-zero-on-changes",
+    "chromatic:env": "dotenv -e .env.local -- chromatic --only-changed --exit-zero-on-changes"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
@@ -65,6 +67,8 @@
     "@vitest/browser": "3.2.4",
     "@vitest/coverage-v8": "3.2.4",
     "autoprefixer": "^10.4.21",
+    "chromatic": "^13.2.0",
+    "dotenv-cli": "^10.0.0",
     "eslint": "^9.35.0",
     "eslint-config-next": "15.5.3",
     "eslint-plugin-jest-dom": "^5.5.0",

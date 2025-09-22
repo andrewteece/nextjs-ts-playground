@@ -2,6 +2,7 @@
 
 ![CI](https://github.com/andrewteece/nextjs-ts-playground/actions/workflows/ci.yml/badge.svg)
 ![CodeQL](https://github.com/andrewteece/nextjs-ts-playground/actions/workflows/codeql.yml/badge.svg)
+[![Chromatic](https://img.shields.io/badge/Chromatic-live-blue)](https://www.chromatic.com/builds?appId=68d1823aa5e5c21055fa3977)
 
 A hands-on sandbox to practice modern **Next.js 15 (App Router) + React 19 + TypeScript** with Tailwind, Vitest, Storybook 9, and a full CI pipeline.
 This repo is used for experimentation, learning, and to model the stack we’ll run at BAPI.

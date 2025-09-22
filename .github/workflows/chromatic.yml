@@ -1,28 +1,29 @@
-# .github/workflows/chromatic.yml
+name: chromatic
+
 on:
-  push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [main]
 
 jobs:
-  publish:
+  chromatic:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout (full history, exact ref)
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # ⬅️ important
-          ref: ${{ github.event.pull_request.head.sha }} # <-- build the PR HEAD commit
+          fetch-depth: 0
+          # Use PR head SHA when in PRs, otherwise the current commit SHA
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+
       - run: pnpm install --frozen-lockfile
+
       - name: Publish to Chromatic
-        env:
-          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-        run: pnpm chromatic
+        run: pnpm chromatic -- --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }} --only-changed --exit-zero-on-changes

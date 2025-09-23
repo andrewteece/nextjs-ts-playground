@@ -4,7 +4,7 @@ import { Button } from "../Button";
 const meta = {
   title: "UI/Button",
   component: Button,
-  args: { children: "Click me" },
+  args: { children: "Click me (test)" },
   argTypes: {
     onClick: { action: "clicked" },
     variant: {

@@ -1,5 +1,4 @@
-# .github/workflows/chromatic.yml
-name: chromatic
+name: Chromatic
 
 on:
   pull_request:

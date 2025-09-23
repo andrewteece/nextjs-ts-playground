@@ -1,13 +1,9 @@
 name: Chromatic
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  pull_request: { types: [opened, synchronize, reopened] }
   push:
     branches: [main]
-
-permissions:
-  contents: read
 
 jobs:
   chromatic:
@@ -20,17 +16,18 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - uses: pnpm/action-setup@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
 
-      - name: Install deps
-        run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
 
       - name: Publish to Chromatic
-        run: pnpm chromatic
-        env:
-          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        uses: chromaui/action@v11
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }} # lets the app post PR status
+          onlyChanged: true # same as --only-changed
+          exitOnceUploaded: true # speeds CI (don’t wait for verification)
+          buildScriptName: build-storybook # lets the action run your build

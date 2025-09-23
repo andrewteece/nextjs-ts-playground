@@ -1,27 +1,33 @@
-# .github/workflows/chromatic.yml
+name: Chromatic
+
 on:
+  pull_request: { types: [opened, synchronize, reopened] }
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  publish:
+  chromatic:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout (full history, exact ref)
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # ⬅️ important
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+
       - run: pnpm install --frozen-lockfile
+
       - name: Publish to Chromatic
-        env:
-          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-        run: pnpm chromatic
+        uses: chromaui/action@v11
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }} # lets the app post PR status
+          onlyChanged: true # same as --only-changed
+          exitOnceUploaded: true # speeds CI (don’t wait for verification)
+          buildScriptName: build-storybook # lets the action run your build

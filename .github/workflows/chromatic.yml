@@ -59,6 +59,21 @@ jobs:
           exitOnceUploaded: true # speeds CI (don't wait for verification)
           buildScriptName: build-storybook # lets the action run your build
 
+  # Legacy compatibility - reports as 'chromatic' for any existing branch protection rules
+  chromatic-legacy:
+    name: chromatic
+    runs-on: ubuntu-latest
+    needs: [chromatic]
+    steps:
+      - name: Report Chromatic status
+        run: |
+          if [[ "${{ needs.chromatic.result }}" == "success" ]]; then
+            echo "✅ Chromatic visual regression testing passed!"
+          else
+            echo "❌ Chromatic visual regression testing failed!"
+            exit 1
+          fi
+
   quality-gate:
     name: Storybook Quality Gate
     runs-on: ubuntu-latest

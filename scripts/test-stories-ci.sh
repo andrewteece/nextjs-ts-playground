@@ -6,7 +6,8 @@ set -e
 # Function to find an available port
 find_available_port() {
   local port=$1
-  while lsof -Pi :$port -sTCP:LISTEN -t >/dev/null 2>&1; do
+  # In CI environments, ports are usually available, but let's be safe
+  while netstat -tuln 2>/dev/null | grep -q ":$port " || lsof -Pi :$port -sTCP:LISTEN -t >/dev/null 2>&1; do
     echo "Port $port is in use, trying $((port + 1))"
     port=$((port + 1))
   done

@@ -1,4 +1,4 @@
-name: Chromatic
+name: Storybook Quality Assurance
 
 on:
   pull_request: { types: [opened, synchronize, reopened] }
@@ -6,7 +6,33 @@ on:
     branches: [main]
 
 jobs:
+  accessibility:
+    name: Accessibility Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Make script executable
+        run: chmod +x ./scripts/test-stories-ci.sh
+
+      - name: Run accessibility tests
+        run: ./scripts/test-stories-ci.sh
+
   chromatic:
+    name: Visual Regression Testing
     runs-on: ubuntu-latest
     steps:
       - name: Checkout (full history, exact ref)
@@ -21,7 +47,8 @@ jobs:
           node-version: 20
           cache: pnpm
 
-      - run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Publish to Chromatic
         uses: chromaui/action@v11
@@ -29,5 +56,23 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }} # lets the app post PR status
           onlyChanged: true # same as --only-changed
-          exitOnceUploaded: true # speeds CI (don’t wait for verification)
+          exitOnceUploaded: true # speeds CI (don't wait for verification)
           buildScriptName: build-storybook # lets the action run your build
+
+  quality-gate:
+    name: Storybook Quality Gate
+    runs-on: ubuntu-latest
+    needs: [accessibility, chromatic]
+    if: always()
+    steps:
+      - name: Check all jobs status
+        run: |
+          if [[ "${{ needs.accessibility.result }}" == "success" && "${{ needs.chromatic.result }}" == "success" ]]; then
+            echo "✅ All Storybook quality checks passed!"
+            exit 0
+          else
+            echo "❌ One or more Storybook quality checks failed:"
+            echo "  - Accessibility: ${{ needs.accessibility.result }}"
+            echo "  - Visual Regression: ${{ needs.chromatic.result }}"
+            exit 1
+          fi

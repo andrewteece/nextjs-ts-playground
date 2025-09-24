@@ -1,6 +1,6 @@
-/* Base design tokens: light by default */
+/* Base design tokens: brand scales, radii, spacing, typography; NO semantic colors here */
 :root {
-  /* brand */
+  /* brand (indigo-like) */
   --brand-50: #eef2ff;
   --brand-100: #e0e7ff;
   --brand-200: #c7d2fe;
@@ -13,18 +13,7 @@
   --brand-800: #3730a3;
   --brand-900: #312e81;
 
-  /* semantic */
-  --bg: #0b1020; /* page background (light-ish dark) */
-  --panel: #0f172a; /* surfaces/cards */
-  --text: #e5e7eb; /* primary text */
-  --muted: #9ca3af; /* secondary text */
-  --ring: var(--brand-500);
-
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-
-  /* radius / spacing / shadow */
+  /* semantics (non-color) */
   --radius-xs: 6px;
   --radius-sm: 10px;
   --radius-md: 14px;
@@ -47,15 +36,4 @@
   --text-md: 1rem;
   --text-lg: 1.125rem;
   --text-xl: 1.25rem;
-}
-
-/* Dark mode variant (if you flip the app to class="dark") */
-.dark {
-  --bg: #0a0f1a;
-  --panel: #0e1627;
-  --text: #e7eaf0;
-  --muted: #9aa3b2;
-
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.45);
 }

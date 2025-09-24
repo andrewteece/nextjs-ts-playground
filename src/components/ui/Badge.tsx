@@ -40,8 +40,8 @@ const palette: Record<BadgeVariant, Record<BadgeColor, string>> = {
     neutral:
       "bg-neutral-800 text-white dark:bg-neutral-200 dark:text-neutral-900",
     primary: "bg-blue-600 text-white",
-    success: "bg-green-600 text-white",
-    warning: "bg-amber-600 text-white",
+    success: "bg-green-700 text-white",
+    warning: "bg-amber-700 text-white",
     danger: "bg-red-600 text-white",
   },
   soft: {

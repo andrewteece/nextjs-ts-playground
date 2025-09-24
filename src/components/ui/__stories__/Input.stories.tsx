@@ -23,7 +23,7 @@ export const Controlled: Story = {
           value={value}
           onChange={(e) => setValue(e.currentTarget.value)}
         />
-        <div className="text-sm text-neutral-600">Value: {value}</div>
+        <div className="text-sm text-neutral-700">Value: {value}</div>
       </div>
     );
   },

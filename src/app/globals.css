@@ -1,70 +1,125 @@
+/* CSS color tokens used by Tailwind theme (HSL for easy theming) */
 @import "./../styles/tokens.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* HSL theme tokens (semantic) — light by default */
 :root {
-  color-scheme: dark light;
-}
+  /* surfaces & text */
+  --bg: 0 0% 100%; /* background */
+  --fg: 222.2 47.4% 11.2%; /* text on bg (≈ slate-900) */
 
-html,
-body,
-#__next {
-  height: 100%;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-sans);
-}
-/* CSS color tokens used by Tailwind theme (HSL for easy theming) */
-:root {
-  --bg: 0 0% 100%;
-  --fg: 222.2 47.4% 11.2%;
-  --muted: 210 40% 96.1%;
-  --muted-fg: 215.4 16.3% 46.9%;
   --card: 0 0% 100%;
   --card-fg: 222.2 47.4% 11.2%;
-  --primary: 221.2 83.2% 53.3%; /* indigo-600ish */
+
+  /* subdued surface + its foreground */
+  --muted: 210 40% 96%; /* ≈ slate-100 (used as bg) */
+  --muted-fg: 215 25% 28%; /* darker for better contrast (≈ slate-700) */
+
+  /* brand */
+  --primary: 221 83% 53%; /* ≈ indigo-600 */
   --primary-fg: 0 0% 100%;
-  --ring: 221.2 83.2% 53.3%;
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
+  --ring: 221 83% 53%;
+
+  /* chrome */
+  --border: 214 32% 88%; /* slightly darker border (more visible) */
+  --input: 214 32% 88%;
+
+  /* semantic badge colors - light theme */
+  --success-soft-bg: 152 76% 90%; /* ~ emerald-100 */
+  --success-soft-fg: 158 84% 22%; /* ~ emerald-800 */
+
+  --info-soft-bg: 204 94% 90%; /* ~ sky-100 */
+  --info-soft-fg: 205 90% 27%; /* ~ sky-800 */
+
+  --warn-soft-bg: 48 96% 88%; /* ~ amber-100 */
+  --warn-soft-fg: 26 83% 25%; /* ~ amber-900 */
+
+  --danger-soft-bg: 356 100% 90%; /* ~ rose-100 */
+  --danger-soft-fg: 343 82% 41%; /* ~ rose-800 */
 }
 
+/* Dark theme overrides */
 .dark {
-  --bg: 222.2 84% 4.9%;
-  --fg: 210 40% 98%;
-  --muted: 217.2 32.6% 17.5%;
-  --muted-fg: 215 20.2% 65.1%;
-  --card: 222.2 84% 5.5%;
+  --bg: 222.2 84% 5%; /* ≈ slate-950 */
+  --fg: 210 40% 98%; /* ≈ slate-50 */
+
+  --card: 222.2 84% 6.5%;
   --card-fg: 210 40% 98%;
-  --primary: 214 95% 68%; /* brighter blue in dark */
+
+  --muted: 217 33% 18%; /* ≈ slate-800 */
+  --muted-fg: 215 20% 70%;
+
+  --primary: 214 95% 68%; /* brighter for dark */
   --primary-fg: 222.2 47.4% 11.2%;
   --ring: 214 95% 68%;
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
+
+  --border: 217 33% 18%;
+  --input: 217 33% 18%;
+
+  /* semantic badge colors - dark theme */
+  --success-soft-bg: 158 94% 12%; /* ~ emerald-950 */
+  --success-soft-fg: 152 81% 88%; /* ~ emerald-100 */
+
+  --info-soft-bg: 201 94% 14%; /* ~ sky-950 */
+  --info-soft-fg: 204 94% 88%; /* ~ sky-100 */
+
+  --warn-soft-bg: 22 92% 12%; /* ~ amber-950 */
+  --warn-soft-fg: 48 96% 88%; /* ~ amber-100 */
+
+  --danger-soft-bg: 343 88% 12%; /* ~ rose-950 */
+  --danger-soft-fg: 356 100% 90%; /* ~ rose-100 */
 }
 
 @layer base {
+  /* Root and body setup */
+  :root {
+    color-scheme: dark light;
+  }
+
   html,
   body,
-  :root {
+  #__next {
     height: 100%;
   }
+
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
     text-rendering: optimizeLegibility;
   }
+
+  /* Default link styling */
   a {
     @apply text-primary underline-offset-2 hover:underline;
+  }
+
+  /* Headings default to strong foreground (fixes low-contrast Hn in docs/cards) */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: hsl(var(--fg));
+  }
+
+  /* Buttons inherit readable text if variant doesn't set it (Outline/Ghost) */
+  button {
+    color: hsl(var(--fg));
+  }
+
+  /* Ensure ≥4.5:1 placeholder contrast across the app */
+  :where(input, textarea)::placeholder {
+    color: hsl(var(--muted-fg)) !important; /* tokenized darker placeholder */
+    opacity: 1; /* keep full intended color */
   }
 }
 
 @layer components {
+  /* Cards / buttons / inputs keep using your semantic tokens */
   .card {
-    /* changed shadow-soft -> shadow-sm */
     @apply rounded-2xl bg-card text-card-fg shadow-sm border border-border;
   }
   .btn {
@@ -81,13 +136,53 @@ body {
     @apply w-full rounded-xl border border-input bg-transparent px-3 py-2 text-sm
            outline-none ring-offset-2 focus-visible:ring-2 focus-visible:ring-ring;
   }
-  /* ---- Storybook frame (keeps content readable on ultrawide screens) ---- */
-  .sb-frame {
-    /* Default: comfy reading width, responsive padding */
-    @apply w-full max-w-5xl mx-auto p-6 md:p-8;
+
+  /* Badges – accessible in both themes */
+  .badge {
+    @apply inline-flex items-center rounded-full whitespace-nowrap px-2.5 py-0.5 text-xs font-semibold;
+  }
+  .badge-success {
+    color: hsl(var(--success-soft-fg));
+    background-color: hsl(var(--success-soft-bg));
+  }
+  .badge-info {
+    color: hsl(var(--info-soft-fg));
+    background-color: hsl(var(--info-soft-bg));
+  }
+  .badge-warn {
+    color: hsl(var(--warn-soft-fg));
+    background-color: hsl(var(--warn-soft-bg));
+  }
+  .badge-danger {
+    color: hsl(var(--danger-soft-fg));
+    background-color: hsl(var(--danger-soft-bg));
   }
 
-  /* Optional: faint border + rounded card look (toggle on in decorators if desired) */
+  /* Container for centering page content */
+  .container {
+    @apply w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Page transition animation */
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-in-out;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Storybook frame helpers */
+  .sb-frame {
+    @apply w-full max-w-5xl mx-auto p-6 md:p-8;
+  }
   .sb-frame-card {
     @apply bg-white dark:bg-neutral-900 border border-neutral-200/70 dark:border-neutral-800 rounded-xl shadow-sm;
   }

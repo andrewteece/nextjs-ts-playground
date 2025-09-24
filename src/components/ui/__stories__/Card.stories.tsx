@@ -11,7 +11,7 @@ const meta = {
         <CardTitle>Card title</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-neutral-600">
+        <p className="text-sm text-neutral-700">
           Cards group related information. Add any content here.
         </p>
       </CardContent>
